@@ -1,4 +1,6 @@
 const hre = require("hardhat")
+const { time } = require("@nomicfoundation/hardhat-network-helpers");
+const { legos } = require("@studydefi/money-legos");
 
 async function main() {
   const LeveragedYieldFarm = await hre.ethers.getContractAt("LeveragedYieldFarm","0x46d4674578a2daBbD0CEAB0500c6c7867999db34")
@@ -20,6 +22,8 @@ async function main() {
   // New blocks are validated roughly every ~ 12 seconds
   await time.increaseTo(BLOCK.timestamp + 12)
 
+  // Deposit 1.1 DAI to contract (.1 for fee)
+await dai.connect(deployer).transfer(leveragedYieldFarm.address, ethers.utils.parseUnits('1.1', 'ether'))
   
 }
 
